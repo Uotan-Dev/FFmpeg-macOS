@@ -20,17 +20,12 @@ if __name__ == "__main__":
     print(f"Compile... {ffmpeg_dir}")
 
 
-    def clean():
-        print("Clean project.")
-        execute(f"cd {ffmpeg_dir} && make clean && make distclean")
-
-
     def make(arch: str):
         n_cpu = cpu_count()
         print("Configure project.")
         execute(
             f"cd {ffmpeg_dir} && ./configure --enable-cross-compile --prefix={target_dir / ('install_' + arch + '/')} "
-            f"--enable-static --disable-runtime-cpudetect --disable-doc --enable-swresample --disable-swscale --disable-postproc --disable-avfilter --disable-debug --enable-audiotoolbox --disable-sdl2 --enable-videotoolbox --enable-opencl --enable-gpl --disable-shared --disable-iconv --arch={arch} --cc='clang -arch {arch}'"
+            f"--enable-static --disable-runtime-cpudetect --disable-doc --enable-swresample --disable-swscale --disable-postproc --disable-avfilter --disable-debug --enable-audiotoolbox --disable-sdl2 --enable-videotoolbox --enable-opencl --enable-gpl --disable-shared --disable-iconv --arch={arch} --cc='clang -w -arch {arch}'"
         )
         print(f"Make project ({n_cpu} threads).")
         execute(f"cd {ffmpeg_dir} && make -j{n_cpu}")
