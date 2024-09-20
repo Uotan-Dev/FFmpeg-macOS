@@ -1,5 +1,6 @@
 name: Build Project
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -19,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: macos-11
+          - os: macos-latest
             tag: n5.0.1
     steps:
       - name: CleanOldArtifact
