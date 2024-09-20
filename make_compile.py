@@ -19,7 +19,9 @@ if __name__ == "__main__":
     target_dir = pathlib.Path(args.target_dir).absolute()
     print(f"Compile... {ffmpeg_dir}")
 
-
+    def clean():
+        print("Clean project.")
+        execute(f"cd {ffmpeg_dir} && make clean && make distclean")
     def make(arch: str):
         n_cpu = cpu_count()
         print("Configure project.")
@@ -34,7 +36,6 @@ if __name__ == "__main__":
 
 
     print("----------arm64----------")
-    clean()
     make("arm64")
     print("----------x86_64----------")
     clean()
